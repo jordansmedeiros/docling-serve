@@ -63,9 +63,7 @@ RUN --mount=from=ghcr.io/astral-sh/uv:0.6.1,source=/uv,target=/bin/uv \
     uv sync --frozen --no-dev --all-extras ${UV_SYNC_EXTRA_ARGS}
 
 RUN chgrp -R 0 /opt/app-root/ && \
-    chmod -R g=u /opt/app-root/ && \
-    chgrp -R 0 ./docling_serve && \
-    chmod -R g=u ./docling_serve
+    chmod -R g=u /opt/app-root/
 
 EXPOSE 5001
 
