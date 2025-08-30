@@ -34,6 +34,8 @@ venv/
 .dockerignore
 Dockerfile
 !Dockerfile.caprover
+!Dockerfile.simple
+!Dockerfile.cpu
 
 # Ignore build artifacts (if applicable)
 build/

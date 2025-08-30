@@ -1,17 +1,23 @@
 # Use the official pre-built image for faster deployment
 FROM quay.io/docling-project/docling-serve:latest
 
-# Switch to root to configure for CapRover
+# Switch to root to install UI dependencies
 USER root
+
+# Install UI dependencies (gradio) that are not in the base image
+RUN pip install --no-cache-dir "docling-serve[ui]"
 
 # CapRover expects port 80, so we'll override the startup command
 EXPOSE 80
 
-# Create a startup script that configures the port
-RUN echo '#!/bin/bash\nexec docling-serve run --host 0.0.0.0 --port 80 --enable-ui "$@"' > /usr/local/bin/start-caprover.sh && \
+# Create a startup script that configures the port and enables UI
+RUN echo '#!/bin/bash\n# Set UI environment variable\nexport DOCLING_SERVE_ENABLE_UI=1\n# Start the server\nexec docling-serve run --host 0.0.0.0 --port 80 --enable-ui "$@"' > /usr/local/bin/start-caprover.sh && \
     chmod +x /usr/local/bin/start-caprover.sh
 
 # Switch back to app user
 USER 1001
+
+# Set environment variable to enable UI
+ENV DOCLING_SERVE_ENABLE_UI=1
 
 CMD ["/usr/local/bin/start-caprover.sh"]

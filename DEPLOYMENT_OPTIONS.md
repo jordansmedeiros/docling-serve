@@ -2,10 +2,29 @@
 
 Este projeto oferece 3 opções de deploy para CapRover:
 
-## Opção 1: Imagen Pré-construída (RECOMENDADO) 🚀
+## Opção 1: CPU-Only com UI (RECOMENDADO) 🚀
+
+**Arquivo**: `Dockerfile.cpu`
+**Tempo**: ~3-7 minutos
+**Tamanho**: ~4GB
+
+```json
+{
+  "schemaVersion": 2,
+  "dockerfilePath": "./Dockerfile.cpu"
+}
+```
+
+**Vantagens**:
+- Deploy mais rápido
+- Menor uso de recursos
+- UI garantidamente habilitada
+- Mais estável
+
+## Opção 2: Imagem Padrão com UI
 
 **Arquivo**: `Dockerfile.simple`
-**Tempo**: ~2-5 minutos
+**Tempo**: ~5-10 minutos
 **Tamanho**: ~8GB
 
 ```json
@@ -16,12 +35,11 @@ Este projeto oferece 3 opções de deploy para CapRover:
 ```
 
 **Vantagens**:
-- Deploy mais rápido
-- Menos chance de erro
-- Usa imagem oficial testada
-- Menos recursos necessários durante build
+- Melhor performance (GPU support)
+- Imagem oficial completa
+- UI instalada automaticamente
 
-## Opção 2: Build Completo Compatível
+## Opção 3: Build Completo Compatível
 
 **Arquivo**: `Dockerfile.caprover`
 **Tempo**: ~30-60 minutos
@@ -39,7 +57,7 @@ Este projeto oferece 3 opções de deploy para CapRover:
 - Compatível com CapRover (sem BuildKit)
 - Controle total sobre dependências
 
-## Opção 3: Build Otimizado (Requer BuildKit)
+## Opção 4: Build Otimizado (Requer BuildKit)
 
 **Arquivo**: `Dockerfile`
 **Tempo**: ~20-40 minutos
