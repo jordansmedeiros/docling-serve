@@ -32,7 +32,8 @@ venv/
 
 # Ignore Docker files themselves (optional if not needed in the image)
 .dockerignore
-Dockerfile*
+Dockerfile
+!Dockerfile.caprover
 
 # Ignore build artifacts (if applicable)
 build/

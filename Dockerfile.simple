@@ -1,0 +1,17 @@
+# Use the official pre-built image for faster deployment
+FROM quay.io/docling-project/docling-serve:latest
+
+# Switch to root to configure for CapRover
+USER root
+
+# CapRover expects port 80, so we'll override the startup command
+EXPOSE 80
+
+# Create a startup script that configures the port
+RUN echo '#!/bin/bash\nexec docling-serve run --host 0.0.0.0 --port 80 --enable-ui "$@"' > /usr/local/bin/start-caprover.sh && \
+    chmod +x /usr/local/bin/start-caprover.sh
+
+# Switch back to app user
+USER 1001
+
+CMD ["/usr/local/bin/start-caprover.sh"]
