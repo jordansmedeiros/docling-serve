@@ -5,7 +5,7 @@ FROM quay.io/docling-project/docling-serve-cpu:latest
 USER root
 
 # Install UI dependencies (gradio) that might not be in the base image
-RUN pip install --no-cache-dir gradio==5.9.* pydantic="<2.11.0"
+RUN pip install --no-cache-dir gradio
 
 # CapRover expects port 80, so we'll override the startup command
 EXPOSE 80
