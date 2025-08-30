@@ -1,11 +1,12 @@
-# Use the CPU-only image which might have better UI support
+# Use the CPU-only image with UI support - v2
 FROM quay.io/docling-project/docling-serve-cpu:latest
 
-# Switch to root to install UI dependencies if needed
+# Switch to root to install UI dependencies
 USER root
 
-# Install UI dependencies (gradio) that might not be in the base image
-RUN pip install --no-cache-dir gradio
+# Install Gradio for UI support - fixed syntax
+RUN echo "Installing Gradio UI - Build timestamp: $(date)" && \
+    pip install --no-cache-dir gradio
 
 # CapRover expects port 80, so we'll override the startup command
 EXPOSE 80

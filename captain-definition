@@ -1,4 +1,4 @@
 {
   "schemaVersion": 2,
-  "dockerfilePath": "./Dockerfile.cpu"
+  "dockerfilePath": "./Dockerfile.ui"
 }

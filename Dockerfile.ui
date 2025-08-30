@@ -1,0 +1,30 @@
+# Docling Serve with UI enabled - Version 3
+FROM quay.io/docling-project/docling-serve-cpu:latest
+
+# Switch to root for installations
+USER root
+
+# Update pip and install Gradio UI
+RUN echo "Build Date: $(date +%Y%m%d-%H%M%S)" && \
+    python -m pip install --upgrade pip && \
+    python -m pip install --no-cache-dir gradio
+
+# Configure for CapRover (port 80)
+EXPOSE 80
+
+# Create startup script for UI
+RUN echo '#!/bin/bash' > /usr/local/bin/start-ui.sh && \
+    echo 'echo "Starting Docling Serve with UI on port 80..."' >> /usr/local/bin/start-ui.sh && \
+    echo 'export DOCLING_SERVE_ENABLE_UI=1' >> /usr/local/bin/start-ui.sh && \
+    echo 'exec docling-serve run --host 0.0.0.0 --port 80 --enable-ui' >> /usr/local/bin/start-ui.sh && \
+    chmod +x /usr/local/bin/start-ui.sh
+
+# Switch back to app user
+USER 1001
+
+# Environment variables for UI
+ENV DOCLING_SERVE_ENABLE_UI=1
+ENV GRADIO_SERVER_NAME=0.0.0.0
+
+# Start with UI enabled
+CMD ["/usr/local/bin/start-ui.sh"]
