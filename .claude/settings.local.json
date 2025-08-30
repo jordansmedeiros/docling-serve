@@ -7,7 +7,9 @@
       "Bash(python -m uv sync:*)",
       "Bash(python -m uv run:*)",
       "Bash(export PYTHONIOENCODING=utf-8)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(export DOCLING_SERVE_ENABLE_UI=1)",
+      "Bash(docker:*)"
     ],
     "deny": [],
     "ask": []

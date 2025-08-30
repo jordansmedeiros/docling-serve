@@ -1,0 +1,40 @@
+name: Deploy to CapRover
+
+on:
+  push:
+    branches: [ main, deploy ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Build and Deploy to CapRover
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build Docker image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: ./Dockerfile
+        platforms: linux/amd64
+        push: false
+        tags: docling-serve:latest
+        build-args: |
+          UV_SYNC_EXTRA_ARGS=--no-extra flash-attn
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Deploy to CapRover
+      uses: caprover/deploy-from-github@v1.2.1
+      with:
+        server: '${{ secrets.CAPROVER_SERVER }}'
+        app: '${{ secrets.CAPROVER_APP_NAME }}'
+        token: '${{ secrets.CAPROVER_APP_TOKEN }}'
