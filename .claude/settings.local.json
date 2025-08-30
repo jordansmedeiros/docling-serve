@@ -4,7 +4,8 @@
       "Bash(pip install:*)",
       "Bash(pip --version)",
       "Bash(uv sync:*)",
-      "Bash(python -m uv sync:*)"
+      "Bash(python -m uv sync:*)",
+      "Bash(python -m uv run:*)"
     ],
     "deny": [],
     "ask": []
